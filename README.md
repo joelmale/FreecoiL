@@ -86,3 +86,23 @@ FreecoiL was created because we wanted more features and flexibility than what w
 7. OSX will likely be supported but has not been tested. The GUI is technically compatible with OSX already.
 8. Weapon Profiles do not affect range, only the way in which the weapon fires and reloads. There may be a few ways to figure out range, but no time has been dedicated to this yet.
 9. Dees-Troy's research was critical to enabling us to make our application. 
+
+## Developer Guide
+
+### Code Overview
+
+#### 1. **FreecoiLPlugin.kt**
+   - Acts as the main integration point between the Android services (Bluetooth, GPS) and the Godot game engine.
+   - **Key Methods**:
+     - `getLastLocation()`: Retrieves the last known GPS location.
+     - `tryNewLocation(newLocation: Location)`: Handles new location data and sends it to the Godot engine.
+     - `theLocationCallback`: Listens for location changes and relays data to `tryNewLocation`.
+
+#### 2. **BluetoothLeService.kt**
+   - A service that manages the connection and communication with Bluetooth Low Energy (BLE) devices using the GATT protocol.
+   - **Key Methods**:
+     - `connect(address: String)`: Initiates a connection to a BLE device using its MAC address.
+     - `discoverServices()`: Discovers GATT services offered by the connected device.
+
+#### 3. **GattAttributes.kt**
+   - A utility file containing UUIDs for various GATT services and characteristics. This allows for easy reference and configuration during BLE communication.
