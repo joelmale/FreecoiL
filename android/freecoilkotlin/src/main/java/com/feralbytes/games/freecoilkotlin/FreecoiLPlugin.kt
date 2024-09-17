@@ -29,6 +29,7 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.location.Location
 import android.location.LocationManager
+import android.location.LocationListener
 import android.os.*
 import android.provider.Settings
 import android.util.Log
@@ -37,7 +38,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.feralbytes.games.freecoilkotlin.BluetoothLeService.LocalBinder
-import com.feralbytes.games.freecoilkotlin.BuildConfig.ApiKeyMap
+//import com.feralbytes.games.freecoilkotlin.BuildConfig.MAPS_API_KEY
 import com.google.android.gms.location.*
 import org.godotengine.godot.Godot
 import org.godotengine.godot.GodotLib
@@ -46,6 +47,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.microedition.khronos.opengles.GL10
 import kotlin.experimental.and
+
+val ApiKeyMap = BuildConfig.MAPS_API_KEY
 
 //import androidx.fragment.app.FragmentActivity;
 class FreecoiLPlugin(godot: Godot?) : GodotPlugin(godot) {
@@ -263,9 +266,10 @@ class FreecoiLPlugin(godot: Godot?) : GodotPlugin(godot) {
                 GodotLib.calldeferred(instanceId.toLong(), "_new_location_data", arrayOf<Any>(arrayOf<Any>(
                         myCurrentBestLocation!!.latitude, myCurrentBestLocation!!.longitude, myCurrentBestLocation!!.altitude,
                         myCurrentBestLocation!!.speed, myCurrentBestLocation!!.bearing, myCurrentBestLocation!!.accuracy,
-                        myCurrentBestLocation!!.provider, myCurrentBestLocation!!.time)))
-                val locAsString = myCurrentBestLocation.toString()
-                logger("onSuccessListener: Location Update Received.  $locAsString", 1);
+                        myCurrentBestLocation!!.provider ?: "", myCurrentBestLocation!!.time)))
+                val locAsString = myCurrentBestLocation?.toString() ?: "Location is null" //Inserted Elvis Operator to handle possible null
+                logger("onSuccessListener: Location Update Received. $locAsString", 1)
+
             }
         }
     }
@@ -656,53 +660,33 @@ class FreecoiLPlugin(godot: Godot?) : GodotPlugin(godot) {
 
     /* GPS & Celular Location Listener */
     private val theLocationCallback:LocationCallback = object: LocationCallback() {
-        override fun onLocationResult(newLocationResult: LocationResult?) {
+        override fun onLocationResult(newLocationResult: LocationResult) {
             super.onLocationResult(newLocationResult)
-            if (newLocationResult?.lastLocation != null) {
+            val lastLocation = newLocationResult.lastLocation
+            if (lastLocation != null) {
                 logger("theLocationCallback.onLocationResult: Update is being passed to tryNewLocation.", 1)
-                tryNewLocation(newLocationResult.lastLocation)
+                tryNewLocation(lastLocation)
             }
         }
     }
 
     private val myLocationListener: LocationListener = object: LocationListener {
-        override fun onLocationChanged(newLocation: Location?) {
-            if (newLocation != null) {
-                logger("myLocationListener.onLocationChanged: Update is being passed to tryNewLocation.", 1)
-                tryNewLocation(newLocation)
-            }
+        override fun onLocationChanged(newLocation: Location) {
+            logger("myLocationListener.onLocationChanged: Update is being passed to tryNewLocation.", 1)
+            tryNewLocation(newLocation)
         }
+
     }
 
     fun tryNewLocation(newLocation: Location?) {
         if (newLocation != null) {
             myCurrentBestLocation = newLocation
             val timestamp: Long = myCurrentBestLocation!!.time
-            var provider: String = if (myCurrentBestLocation!!.provider != null) {
-                myCurrentBestLocation!!.provider
-            }
-            else {
-                ""
-            }
+            val provider: String = myCurrentBestLocation!!.provider ?: ""
+            val bearing: Float = myCurrentBestLocation!!.bearing ?: -1F
+            val speed: Float = myCurrentBestLocation!!.speed ?: -1F
+            val altitude: Double = myCurrentBestLocation!!.altitude ?: -99999.0
             val accuracy: Float = myCurrentBestLocation!!.accuracy
-            val bearing: Float = if (myCurrentBestLocation!!.bearing != null) {
-                myCurrentBestLocation!!.bearing
-            }
-            else {
-                -1F
-            }
-            val speed: Float = if (myCurrentBestLocation!!.speed != null) {
-                myCurrentBestLocation!!.speed
-            }
-            else {
-                -1F
-            }
-            val altitude: Double = if (myCurrentBestLocation!!.altitude != null) {
-                myCurrentBestLocation!!.altitude
-            }
-            else {
-                (-99999).toDouble()
-            }
             val longitude: Double = myCurrentBestLocation!!.longitude
             val latitude: Double = myCurrentBestLocation!!.latitude
             GodotLib.calldeferred(instanceId.toLong(), "_new_location_data", arrayOf<Any>(arrayOf<Any>(
