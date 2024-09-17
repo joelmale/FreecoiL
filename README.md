@@ -5,12 +5,7 @@
 * [0.3.0 - Stable](https://drive.google.com/file/d/1qIWfmgSsaWbF8WLBRPBkmSJb11C4e1Jw/view?usp=sharing)
 * [0.3.+-dev - In Development Latest Features, usually good enough to play, but could have BUGS. Warning this could degrade your experience.](https://drive.google.com/file/d/1THbg9BwNtv8ctvvBAkzK-RuvVdSRedUj/view?usp=sharing)
 
-## Please See [Our Current Milestone Here](https://gitlab.com/FeralBytes/FreecoiL/-/milestones/3).
-[For the most up to date development information contact the lead developer on Discord.](https://discordapp.com/invite/tn4hThV).
-
-### [Our Documentation](https://freecoil.readthedocs.io/en/master/) is on ReadTheDocs.
-
-### What is FreecoiL?   [![pipeline status](https://gitlab.com/FeralBytes/FreecoiL/badges/master/pipeline.svg)](https://gitlab.com/FeralBytes/FreecoiL/-/commits/master) [![Documentation Status](https://readthedocs.org/projects/freecoil/badge/?version=latest)](https://freecoil.readthedocs.io/en/latest/)
+### What is FreecoiL24?   [![pipeline status](https://gitlab.com/FeralBytes/FreecoiL/badges/master/pipeline.svg)](https://gitlab.com/FeralBytes/FreecoiL/-/commits/master) [![Documentation Status](https://readthedocs.org/projects/freecoil/badge/?version=latest)](https://freecoil.readthedocs.io/en/latest/)
 FreecoiL is a laser tag application for the RECOIL[2] system for Android[6]. The focus is to add more features to the game environment, offer more flexibility and customization to players, and increase replay-ability. 
 
 ## Features:
@@ -31,31 +26,7 @@ FreecoiL is a laser tag application for the RECOIL[2] system for Android[6]. The
 
 ### How to Get FreecoiL:
 
-[Signup for further updates by providing your email here](https://docs.google.com/forms/d/e/1FAIpQLSd-ZglY7iiT7ToqPvR-o6Bv0AsBIz9rJWOAWz83Mygj_GL-Yw/viewform).
-Once Ready you will be able to Download from GOOGLE PLAY STORE[1], coming soon! Expected Price $0.00. The project is now open source and we will accept donations to help pay for the PLAY STORE and iTunes submissions.
-
-### How to Donate:
-
-* Donate to [FeralBytes the Creators of FreecoiL here](https://www.paypal.me/FeralBytes).
-
-## How to Get Involved
-
-[Contact the Lead Developer on Discord.](https://discordapp.com/invite/tn4hThV).
-```eval_rst
-.. mermaid::
-
-  graph TD;
-      A(You)--First Time Involved-->B[<a href='https://gitlab.com/users/sign_in#register-pane'>Create Account on GitLab</a>];
-      B-->C[<a href='https://gitlab.com/FeralBytes/FreecoiL/'>Clone & Branch FreecoiL<a/>];
-      C-->D[<a href='https://gitlab.com/FeralBytes/FreecoiL/merge_requests/new'>Make Changes & Submit a Merge Request</a>];
-      D-->E{I Review Your MR};
-      E-->F[Looks Good!]
-      E-->I[Needs Changes]
-      F-->G[Your Changes are Merged]
-      G-->H[Play the Game with Your Changes]
-      I--Returns to You-->A
-      A--After Changes-->D
-```
+For now you can't get it here :)
 
 ### The Release Plan So Far: If we are able to speed up the timeline below, we will.
 
