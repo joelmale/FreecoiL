@@ -15,3 +15,4 @@ android/libs/
 android/build/
 android/freecoilkotlin/build/
 android/gradle.properties
+android/secrets.properties
